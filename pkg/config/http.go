@@ -5,15 +5,15 @@ import (
 	"gopkg.in/ini.v1"
 )
 
-var Server *server
+var HttpConfig *httpConfig
 
-type server struct {
+type httpConfig struct {
 	Address string
 	Port int
 	source *ini.File
 }
 
-func (s *server) Load(path string) *server {
+func (s *httpConfig) Load(path string) *httpConfig {
 	//判断配置文件是否存在
 	exists, err := helper.PathExists(path)
 	if !exists {
@@ -26,12 +26,12 @@ func (s *server) Load(path string) *server {
 	return s
 }
 
-func (s *server)Init() *server {
+func (s *httpConfig)InitHttp() *httpConfig {
 	//判断配置是否加载成功
 	if s.source == nil {
 		return s
 	}
-	s.Address = s.source.Section("server").Key("address").MustString("0.0.0.0")
-	s.Port = s.source.Section("server").Key("port").MustInt(8080)
+	s.Address = s.source.Section("HttpServer").Key("address").MustString("127.0.0.1")
+	s.Port = s.source.Section("HttpServer").Key("port").MustInt(8080)
 	return s
 }

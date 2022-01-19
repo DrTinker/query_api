@@ -13,3 +13,8 @@ type User struct {
 	User_phone int    `json:"user_phone" form:"user_phone"`
 	User_email string `json:"user_email" form:"user_email"`
 }
+
+type Login struct {
+	User_id    int32  `json:"user_id" form:"user_id"`
+	User_pwd   string `json:"user_pwd" form:"user_pwd"`
+}

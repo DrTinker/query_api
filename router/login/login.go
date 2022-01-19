@@ -3,6 +3,7 @@ package login
 import (
 	"fmt"
 	"query_api/models"
+	"query_api/response"
 
 	log "github.com/sirupsen/logrus"
 
@@ -20,6 +21,6 @@ func LoginHandler(c *gin.Context) {
 		log.Error("err: %+v", err)
 	}
 	fmt.Printf("user: %+v", u)
-	// http 请求返回一个字符串 
-	c.String(200, "Success")
+	// 返回成功 
+	response.Success_resp(c)
 }
