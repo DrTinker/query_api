@@ -15,5 +15,5 @@ func main() {
 
 	RegisterRouter(r)
 
-	r.Run(fmt.Sprintf("%s:%d", config.HttpServer.Address, config.HttpServer.Port))
+	r.Run(fmt.Sprintf("%s:%d", config.HttpConfig.Address, config.HttpConfig.Port))
 }

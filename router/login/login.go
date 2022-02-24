@@ -2,8 +2,10 @@ package login
 
 import (
 	"fmt"
+	"net/http"
+	"query_api/client"
+	"query_api/conf"
 	"query_api/models"
-	"query_api/response"
 
 	log "github.com/sirupsen/logrus"
 
@@ -20,7 +22,29 @@ func LoginHandler(c *gin.Context) {
 		log.SetLevel(log.DebugLevel)
 		log.Error("err: %+v", err)
 	}
+	id := u.User_id
+	pwd := u.User_pwd
+
+	info, err := client.UserOptionClient.GetUserByUserID(c, id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"code": conf.ERROR_LOGIN_CODE,
+			"msg": conf.RPC_FAILED_MESSAGE,
+		})
+	}
+	// 密码错误
+	if (info.UserPwd != pwd) {
+		c.JSON(http.StatusNotAcceptable, gin.H{
+			"code": conf.ERROR_LOGIN_CODE,
+			"msg": conf.LOGIN_ERROR_MESSAGE,
+		})
+	}
+	// TODO 介入日志
 	fmt.Printf("user: %+v", u)
 	// 返回成功 
-	response.Success_resp(c)
+	c.JSON(http.StatusNotAcceptable, gin.H{
+		"code": conf.HTTP_SUCCESS_CODE,
+		"msg": conf.SUCCESS_RESP_MESSAGE,
+		"data": info, 
+	})
 }

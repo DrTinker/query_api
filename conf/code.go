@@ -2,3 +2,12 @@ package conf
 
 // RPC状态码
 const RPC_SUCCESS_CODE = 10000
+
+// HTTP状态码
+// 成功
+const HTTP_SUCCESS_CODE = 10000
+// 错误
+const HTTP_INVALID_PARAMS_CODE = 20000 // 参数错误通用
+const ERROR_LOGIN_CODE = 21000
+const ERROR_AUTH_CHECK_TOKEN_FAIL_CODE = 21001 // jwt
+const ERROR_AUTH_CHECK_TOKEN_TIMEOUT_CODE = 21002 // jwt
