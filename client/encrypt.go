@@ -2,32 +2,34 @@ package client
 
 import (
 	"query_api/infrastructure/jwt"
+	"query_api/models"
 )
 
 type Encryption interface {
-	JWTInit (expire int64, key []byte)
-	JwtEncode (c jwt.Claims) (string, error)
-	JwtDecode (s string) (*jwt.Claims, error)
+	JWTInit(expire int64, key []byte)
+	JwtEncode(t models.Token) (string, error)
+	JwtDecode(s string) (*models.Token, error)
 }
 
 type encryption struct {
-	JWTKey []byte
+	JWTKey    []byte
 	JWTExpire int64
 }
 
 var EncryptionClient encryption
 
-func (e *encryption) JwtEncode (c jwt.Claims) (string, error){
-	token, err := jwt.Encode(c, e.JWTKey, e.JWTExpire)
+func (e *encryption) JwtEncode(t models.Token) (string, error) {
+	token, err := jwt.Encode(t, e.JWTKey, e.JWTExpire)
 	return token, err
 }
 
-func (e *encryption) JwtDecode (s string) (*jwt.Claims, error){
-	claims, err := jwt.Decode(s, e.JWTKey)
-	return claims, err
+func (e *encryption) JwtDecode(s string) (*models.Token, error) {
+	token, err := jwt.Decode(s, e.JWTKey)
+	return token, err
 }
 
-func (e *encryption) JWTInit (expire int64, key []byte) {
+func (e *encryption) JWTInit(expire int64, key []byte) {
+	EncryptionClient = encryption{}
 	e.JWTKey = key
 	e.JWTExpire = expire
 }

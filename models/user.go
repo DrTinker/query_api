@@ -15,6 +15,12 @@ type User struct {
 }
 
 type Login struct {
-	User_id    int32  `json:"user_id" form:"user_id"`
-	User_pwd   string `json:"user_pwd" form:"user_pwd"`
+	User_id  int32  `json:"user_id" form:"user_id"`
+	User_pwd string `json:"user_pwd" form:"user_pwd"`
+}
+
+type Token struct {
+	UserID  int32  `json:"user_id"`
+	UserPwd string `json:"user_pwd"`
+	Expire  int64  `json:"expire"`
 }

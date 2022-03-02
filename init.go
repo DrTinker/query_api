@@ -3,9 +3,11 @@ package main
 import (
 	"query_api/client"
 	"query_api/conf"
+	middleware "query_api/middleware/user"
 	"query_api/models"
 	"query_api/pkg/config"
 	"query_api/router/login"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
@@ -22,17 +24,18 @@ func init() {
 }
 
 func RegisterRouter(r *gin.Engine) {
-	l := r.Group("/user") 
+	l := r.Group("/user")
 	{
-		l.POST("/login", login.LoginHandler)
+		l.GET("/login", middleware.JWT(), login.LoginHandler)
 	}
 }
 
-func rpcConnect() *grpc.ClientConn{
-	conn, err := grpc.Dial(config.RpcConfig.Address, grpc.WithInsecure())
-	
-    if err != nil {
+func rpcConnect() *grpc.ClientConn {
+	address := config.RpcConfig.Address + ":" + strconv.Itoa(config.RpcConfig.Port)
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+
+	if err != nil {
 		panic(err)
-    }
+	}
 	return conn
 }

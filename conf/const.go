@@ -13,3 +13,6 @@ const DefaultRpcPort = 50052
 // jwt
 const JWTKeyValue = "lzc_query_system"
 const JWTExpireValue = 7200
+const JWTFlag = "jwt_flag"        // 标识本次登录是否携带JWT
+const JWTClaims = "jwt_claims"    // 存储jwt的声明字段
+const JWTHeader = "Authorization" // jwt请求头标识字段

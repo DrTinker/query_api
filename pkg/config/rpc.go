@@ -7,7 +7,7 @@ import (
 	"gopkg.in/ini.v1"
 )
 
-var RpcConfig *rpcConfig
+var RpcConfig = &rpcConfig{}
 
 type rpcConfig struct {
 	Address                string
@@ -39,7 +39,7 @@ func (s *rpcConfig) InitRpc() *rpcConfig {
 	}
 	section := s.source.Section("RpcServer")
 	s.Address = section.Key("address").MustString("127.0.0.1")
-	s.Port = section.Key("port").MustInt(8080)
+	s.Port = section.Key("port").MustInt(50052)
 	s.ClientPoolConnsSizeCap = section.Key("clientPoolConnsSizeCap").MustInt(conf.DefaultClientPoolConnsSizeCap)
 	s.DialTimeout = section.Key("dialTimeout").MustInt(int(conf.DefaultDialTimeout))
 	s.KeepAlive = section.Key("keepAlive").MustInt(int(conf.DefaultKeepAlive))

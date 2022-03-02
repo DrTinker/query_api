@@ -1,18 +1,17 @@
 package config
 
 import (
-	
 	"query_api/pkg/helper"
 
 	"gopkg.in/ini.v1"
 )
 
-var HttpConfig *httpConfig
+var HttpConfig = &httpConfig{}
 
 type httpConfig struct {
 	Address string
-	Port int
-	source *ini.File
+	Port    int
+	source  *ini.File
 }
 
 func (s *httpConfig) Load(path string) *httpConfig {
@@ -28,7 +27,7 @@ func (s *httpConfig) Load(path string) *httpConfig {
 	return s
 }
 
-func (s *httpConfig)InitHttp() *httpConfig {
+func (s *httpConfig) InitHttp() *httpConfig {
 	//判断配置是否加载成功
 	if s.source == nil {
 		return s
