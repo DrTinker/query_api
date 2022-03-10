@@ -16,3 +16,7 @@ const JWTExpireValue = 7200
 const JWTFlag = "jwt_flag"        // 标识本次登录是否携带JWT
 const JWTClaims = "jwt_claims"    // 存储jwt的声明字段
 const JWTHeader = "Authorization" // jwt请求头标识字段
+
+// user
+const User_ID = "user_id"
+const User_PWD = "user_pwd"

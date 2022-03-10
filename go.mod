@@ -28,6 +28,7 @@ require (
 	github.com/peterh/liner v0.0.0-20170317030525-88609521dc4b // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/ramya-rao-a/go-outline v0.0.0-20210608161538-9736a4bde949 // indirect
+	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966 // indirect
 	github.com/spf13/cobra v0.0.0-20170417170307-b6cb39589372 // indirect

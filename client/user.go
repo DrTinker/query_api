@@ -2,32 +2,22 @@ package client
 
 import (
 	"context"
-	"query_api/conf"
-	"query_api/infrastructure/rpc/user"
-	"query_api/models"
+	"query_api/grpc_gen/user"
 )
 
-type UserOption interface {
+type UserClient interface {
 	GetUserByUserID(ctx context.Context, id int32) (*user.User, error)
+	CreateUser(ctx context.Context, user *user.User) error
 }
 
-type userOptionClient struct{
-	
+var (
+	userClient UserClient
+)
+
+func GetUserClient() UserClient {
+	return userClient
 }
 
-var UserOptionClient userOptionClient
-
-func (u userOptionClient) GetUserByUserID(ctx context.Context, id int32) (*user.User, error) {
-	req := user.GetUserByUserIDReq{
-		UserId: id,
-	}
-	c := user.NewUserServiceClient(models.RpcConn)
-	resp, err := c.GetUserByUserID(ctx, &req)
-	if err != nil {
-		return nil, err
-	}
-	if (resp.Resp.Code == conf.RPC_SUCCESS_CODE) {
-		return resp.UserInfo, nil
-	}
-	return nil, conf.ErrRpcEmptyResp
+func InitUserClient(client UserClient) {
+	userClient = client
 }

@@ -3,7 +3,8 @@ package main
 // 导入gin包
 import (
 	"fmt"
-	"query_api/pkg/config"
+	"query_api/client"
+	"query_api/start"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,7 +14,12 @@ func main() {
 	// 初始化一个http服务对象
 	r := gin.Default()
 
-	RegisterRouter(r)
+	start.RegisterRouter(r)
 
-	r.Run(fmt.Sprintf("%s:%d", config.HttpConfig.Address, config.HttpConfig.Port))
+	cfg, err := client.GetConfigClient().GetHttpConfig()
+	if err != nil {
+		panic(err)
+	}
+
+	r.Run(fmt.Sprintf("%s:%d", cfg.Address, cfg.Port))
 }
